@@ -2,6 +2,7 @@ services:
   - type: web
     name: reddit-forum-backend
     env: python
+    pythonVersion: 3.11
     region: oregon
     plan: starter
     buildCommand: pip install -r requirements.txt

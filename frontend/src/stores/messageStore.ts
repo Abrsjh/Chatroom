@@ -223,4 +223,4 @@ export const useMessageStore = create<MessageState>((set, get) => ({
       set({ pollingInterval: null })
     }
   }
-})
+}))

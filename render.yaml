@@ -1,60 +1,55 @@
-version: "1"
-build:
-  commands:
-    - echo "Installing dependencies..."
-    - pip install --upgrade pip
-    - pip install -r requirements.txt
-    - echo "Running database migrations..."
-    - python -m alembic upgrade head
-    - echo "Build completed successfully"
-
-deploy:
-  commands:
-    - echo "Starting FastAPI application..."
-    - python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+version: 1
 
 services:
   - type: web
     name: community-platform-backend
     env: python
+    pythonVersion: "3.11.9" # Moved from envVars and placed here
     plan: starter
-    buildCommand: pip install -r requirements.txt && python -m alembic upgrade head
-    startCommand: python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
+    region: oregon # It's good practice to specify the region
     
+    # Use the more detailed build commands
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python -m alembic upgrade head
+      
+    # Use the more detailed start command from the deploy section
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    
+    # Health check settings moved inside the service
+    healthCheck:
+      path: /health
+      port: 8000 # Use the port your app listens on
+      initialDelaySeconds: 30
+
+    # Environment variables moved inside the service
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: community-platform-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: ENVIRONMENT
+        value: "production"
+      - key: DEBUG
+        value: "false"
+      - key: CORS_ORIGINS
+        value: "https://your-frontend-domain.vercel.app,https://your-custom-domain.com"
+      - key: PORT
+        value: "8000"
+
+    # Scaling settings moved inside the service
+    scaling:
+      minInstances: 1
+      maxInstances: 3
+      targetCPUPercent: 70
+      targetMemoryPercent: 80
+
 databases:
   - name: community-platform-db
     plan: starter
-    
-environment:
-  - key: PYTHON_VERSION
-    value: "3.11.9"
-  - key: DATABASE_URL
-    fromDatabase: community-platform-db
-    property: connectionString
-  - key: JWT_SECRET_KEY
-    generateValue: true
-  - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
-    value: "30"
-  - key: ENVIRONMENT
-    value: "production"
-  - key: DEBUG
-    value: "false"
-  - key: CORS_ORIGINS
-    value: "https://your-frontend-domain.vercel.app,https://your-custom-domain.com"
-  - key: PORT
-    value: "8000"
-
-scaling:
-  minInstances: 1
-  maxInstances: 3
-  targetCPUPercent: 70
-  targetMemoryPercent: 80
-
-health:
-  httpPath: /health
-  httpPort: 8000
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
+    region: oregon # Match the region of your service

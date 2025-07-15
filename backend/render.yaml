@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: reddit-forum-backend
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 4
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: reddit-forum-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: "https://reddit-forum-frontend.vercel.app"
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRE_HOURS
+        value: 24
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+      - key: PYTHONUNBUFFERED
+        value: 1
+
+databases:
+  - name: reddit-forum-db
+    region: oregon
+    plan: starter
+    databaseName: reddit_forum
+    user: reddit_user
+
+# Optional: Static site for API docs
+  - type: web
+    name: reddit-forum-docs
+    env: static
+    buildCommand: echo "API documentation hosted at main backend"
+    staticPublishPath: docs
+    routes:
+      - type: redirect
+        source: /*
+        destination: https://reddit-forum-backend.onrender.com/docs

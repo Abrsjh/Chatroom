@@ -1,0 +1,126 @@
+.moderation-buttons {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  margin-top: var(--space-sm);
+}
+
+.moderation-button {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 60px;
+  text-align: center;
+}
+
+.moderation-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.moderation-button--delete {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger-dark);
+  border-color: var(--color-danger);
+}
+
+.moderation-button--delete:hover:not(:disabled) {
+  background-color: var(--color-danger);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.moderation-button--flag {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-dark);
+  border-color: var(--color-warning);
+}
+
+.moderation-button--flag:hover:not(:disabled) {
+  background-color: var(--color-warning);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.moderation-button--approve {
+  background-color: var(--color-success-light);
+  color: var(--color-success-dark);
+  border-color: var(--color-success);
+}
+
+.moderation-button--approve:hover:not(:disabled) {
+  background-color: var(--color-success);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.moderation-message {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+.moderation-message--success {
+  background-color: var(--color-success-light);
+  color: var(--color-success-dark);
+  border: 1px solid var(--color-success);
+}
+
+.moderation-message--error {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger-dark);
+  border: 1px solid var(--color-danger);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .moderation-buttons {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+  
+  .moderation-button {
+    flex: 1;
+    min-width: 50px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .moderation-button {
+    border-width: 2px;
+  }
+  
+  .moderation-message {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .moderation-button:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .moderation-message {
+    animation: none;
+  }
+}

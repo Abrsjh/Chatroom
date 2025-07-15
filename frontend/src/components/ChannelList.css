@@ -1,0 +1,156 @@
+.channel-list {
+  padding: 1rem;
+}
+
+.channel-list__title {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.channel-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.channel-item {
+  margin-bottom: 0.5rem;
+}
+
+.channel-item__link {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 0.5rem;
+  border: 1px solid #e9ecef;
+  transition: all 0.15s ease-in-out;
+}
+
+.channel-item__link:hover {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  text-decoration: none;
+}
+
+.channel-item--current .channel-item__link {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+  color: #1976d2;
+}
+
+.channel-item__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.channel-item__name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.channel-item--current .channel-item__name {
+  color: #1976d2;
+}
+
+.channel-item__description {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.channel-item__meta {
+  font-size: 0.75rem;
+  color: #adb5bd;
+  font-weight: 500;
+}
+
+.channel-list__empty {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.channel-list__empty-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.channel-list__empty-description {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Loading state styles */
+.channel-list__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #e9ecef;
+  border-top: 2px solid #2196f3;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+/* Error state styles */
+.channel-list__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+  text-align: center;
+}
+
+.error-message {
+  margin: 0;
+  color: #dc3545;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.retry-button {
+  padding: 0.5rem 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.retry-button:hover {
+  background-color: #1976d2;
+}
+
+.retry-button:focus {
+  outline: 2px solid #90caf9;
+  outline-offset: 2px;
+}

@@ -1,0 +1,60 @@
+version: "1"
+build:
+  commands:
+    - echo "Installing dependencies..."
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - echo "Running database migrations..."
+    - python -m alembic upgrade head
+    - echo "Build completed successfully"
+
+deploy:
+  commands:
+    - echo "Starting FastAPI application..."
+    - python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+
+services:
+  - type: web
+    name: community-platform-backend
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt && python -m alembic upgrade head
+    startCommand: python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    
+databases:
+  - name: community-platform-db
+    plan: starter
+    
+environment:
+  - key: PYTHON_VERSION
+    value: "3.11"
+  - key: DATABASE_URL
+    fromDatabase: community-platform-db
+    property: connectionString
+  - key: JWT_SECRET_KEY
+    generateValue: true
+  - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+    value: "30"
+  - key: ENVIRONMENT
+    value: "production"
+  - key: DEBUG
+    value: "false"
+  - key: CORS_ORIGINS
+    value: "https://your-frontend-domain.vercel.app,https://your-custom-domain.com"
+  - key: PORT
+    value: "8000"
+
+scaling:
+  minInstances: 1
+  maxInstances: 3
+  targetCPUPercent: 70
+  targetMemoryPercent: 80
+
+health:
+  httpPath: /health
+  httpPort: 8000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3

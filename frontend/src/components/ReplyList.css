@@ -1,0 +1,486 @@
+.reply-list-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.reply-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reply-list-loading,
+.reply-list-error,
+.reply-list-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  color: #6c757d;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.reply-list-error button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.reply-list-error button:hover {
+  background: #0056b3;
+}
+
+.reply-thread {
+  display: flex;
+  flex-direction: column;
+}
+
+.reply {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 8px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.reply:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+.reply:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+/* Nested reply indentation */
+.reply-depth-0 {
+  margin-left: 0;
+}
+
+.reply-depth-1 {
+  margin-left: 24px;
+  border-left: 2px solid #007bff;
+}
+
+.reply-depth-2 {
+  margin-left: 48px;
+  border-left: 2px solid #28a745;
+}
+
+.reply-depth-3 {
+  margin-left: 72px;
+  border-left: 2px solid #ffc107;
+}
+
+.reply-depth-4 {
+  margin-left: 96px;
+  border-left: 2px solid #dc3545;
+}
+
+.reply-depth-5 {
+  margin-left: 120px;
+  border-left: 2px solid #6f42c1;
+}
+
+.reply-depth-6 {
+  margin-left: 144px;
+  border-left: 2px solid #fd7e14;
+}
+
+.reply-depth-7 {
+  margin-left: 168px;
+  border-left: 2px solid #20c997;
+}
+
+.reply-depth-8 {
+  margin-left: 192px;
+  border-left: 2px solid #e83e8c;
+}
+
+.reply-depth-9 {
+  margin-left: 216px;
+  border-left: 2px solid #17a2b8;
+}
+
+.reply-depth-10 {
+  margin-left: 240px;
+  border-left: 2px solid #6c757d;
+}
+
+.reply-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reply-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.reply-author {
+  font-weight: 600;
+  color: #495057;
+}
+
+.reply-time {
+  color: #6c757d;
+}
+
+.reply-edited {
+  font-style: italic;
+  color: #ffc107;
+  font-size: 0.75rem;
+}
+
+/* Thread depth visual indicators */
+.reply-depth-indicator {
+  position: absolute;
+  left: -8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  opacity: 0.6;
+}
+
+/* Performance optimization for deep threads */
+.reply-depth-8,
+.reply-depth-9,
+.reply-depth-10 {
+  font-size: 0.875rem;
+}
+
+.reply-depth-9,
+.reply-depth-10 {
+  opacity: 0.95;
+}
+
+/* Max depth styling */
+.reply-max-depth {
+  background: linear-gradient(45deg, #dc3545, #c82333);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reply-text {
+  line-height: 1.5;
+  color: #212529;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.reply-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.reply-votes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vote-count {
+  font-weight: 600;
+  color: #007bff;
+  font-size: 0.875rem;
+}
+
+.reply-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-button,
+.reply-button,
+.edit-button,
+.delete-button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: #6c757d;
+}
+
+.expand-button:hover,
+.reply-button:hover {
+  background: #f8f9fa;
+  color: #007bff;
+}
+
+.edit-button:hover {
+  background: #f8f9fa;
+  color: #28a745;
+}
+
+.delete-button:hover {
+  background: #f8f9fa;
+  color: #dc3545;
+}
+
+.expand-button {
+  position: relative;
+  width: auto;
+  min-width: 28px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 0.875rem;
+  padding: 2px 6px;
+  transition: all 0.3s ease;
+}
+
+.expand-button:hover {
+  background: #f8f9fa;
+  color: #007bff;
+  transform: scale(1.05);
+}
+
+.expand-button.expanding {
+  animation: expandPulse 0.3s ease;
+}
+
+@keyframes expandPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.expand-icon {
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.child-count {
+  font-size: 0.75rem;
+  color: #6c757d;
+  font-weight: 500;
+  min-width: 12px;
+}
+
+.expand-button:hover .child-count {
+  color: #007bff;
+}
+
+.reply-children {
+  margin-top: 8px;
+  opacity: 1;
+  max-height: none;
+  overflow: visible;
+  transition: all 0.3s ease;
+}
+
+.reply-children.expanding {
+  animation: expandThread 0.3s ease;
+}
+
+@keyframes expandThread {
+  0% {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    max-height: none;
+    transform: translateY(0);
+  }
+}
+
+.reply-thread.collapsed .reply-children {
+  display: none;
+}
+
+.delete-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.modal-actions button:first-child {
+  background: #dc3545;
+  color: white;
+}
+
+.modal-actions button:first-child:hover {
+  background: #c82333;
+}
+
+.modal-actions button:last-child {
+  background: #f8f9fa;
+  color: #495057;
+}
+
+.modal-actions button:last-child:hover {
+  background: #e9ecef;
+}
+
+.virtualized-reply-list {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .reply-list-container {
+    padding: 8px;
+  }
+
+  .reply {
+    padding: 12px;
+  }
+
+  /* Reduce indentation on mobile */
+  .reply-depth-1 { margin-left: 16px; }
+  .reply-depth-2 { margin-left: 32px; }
+  .reply-depth-3 { margin-left: 48px; }
+  .reply-depth-4 { margin-left: 64px; }
+  .reply-depth-5 { margin-left: 80px; }
+  .reply-depth-6 { margin-left: 96px; }
+  .reply-depth-7 { margin-left: 112px; }
+  .reply-depth-8 { margin-left: 128px; }
+  .reply-depth-9 { margin-left: 144px; }
+  .reply-depth-10 { margin-left: 160px; }
+
+  .reply-buttons {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .reply-button,
+  .edit-button,
+  .delete-button {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .reply {
+    border: 2px solid #000;
+  }
+  
+  .reply:hover {
+    border-color: #0066cc;
+  }
+  
+  .reply-depth-1,
+  .reply-depth-2,
+  .reply-depth-3,
+  .reply-depth-4,
+  .reply-depth-5,
+  .reply-depth-6,
+  .reply-depth-7,
+  .reply-depth-8,
+  .reply-depth-9,
+  .reply-depth-10 {
+    border-left: 3px solid #000;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reply,
+  .expand-button,
+  .reply-button,
+  .edit-button,
+  .delete-button,
+  .reply-children {
+    transition: none;
+    animation: none;
+  }
+  
+  .expand-button:hover {
+    transform: none;
+  }
+  
+  .expand-button.expanding {
+    animation: none;
+  }
+  
+  .reply-children.expanding {
+    animation: none;
+  }
+}

@@ -1,0 +1,224 @@
+.post-list {
+  max-width: 100%;
+}
+
+.post-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e1e5e9;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.post-list__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1b;
+}
+
+.post-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list__item {
+  margin: 0;
+}
+
+.post-list__empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  border: 1px solid #e1e5e9;
+}
+
+.post-list__empty-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.post-list__empty-description {
+  margin: 0 0 1.5rem 0;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.post-list__create-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #2196f3;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.post-list__create-link:hover {
+  background-color: #1976d2;
+  text-decoration: none;
+  color: white;
+}
+
+/* Sorting controls */
+.post-list__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.post-list__sort-label,
+.post-list__time-label {
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+}
+
+.post-list__sort-select,
+.post-list__time-select {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: white;
+  color: #495057;
+  font-size: 0.875rem;
+  min-width: 100px;
+  cursor: pointer;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.post-list__sort-select:focus,
+.post-list__time-select:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+}
+
+.post-list__sort-select:disabled,
+.post-list__time-select:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* Loading state */
+.post-list__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+.post-list__spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #2196f3;
+  border-radius: 50%;
+  animation: post-list-spin 1s linear infinite;
+}
+
+@keyframes post-list-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.post-list__error {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 0.5rem;
+  color: #c53030;
+}
+
+.post-list__retry-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #c53030;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.post-list__retry-button:hover {
+  background-color: #b91c1c;
+}
+
+/* Accessibility */
+.post-list__announcement {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .post-list {
+    padding: 0;
+  }
+  
+  .post-list__header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 1rem 0.5rem;
+    gap: 0.75rem;
+  }
+  
+  .post-list__title {
+    font-size: 1.125rem;
+  }
+  
+  .post-list__controls {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  .post-list__sort-select,
+  .post-list__time-select {
+    min-width: 120px;
+    flex: 1;
+  }
+  
+  .post-list__empty {
+    margin: 0 1rem;
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-list__controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .post-list__sort-select,
+  .post-list__time-select {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .post-list__sort-label,
+  .post-list__time-label {
+    margin-bottom: 0.25rem;
+  }
+}

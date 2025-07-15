@@ -28,7 +28,7 @@ databases:
     
 environment:
   - key: PYTHON_VERSION
-    value: "3.11"
+    value: "3.11.9"
   - key: DATABASE_URL
     fromDatabase: community-platform-db
     property: connectionString

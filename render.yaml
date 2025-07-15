@@ -4,7 +4,7 @@ services:
     env: python
     region: oregon
     plan: starter
-    pythonVersion: "3.11"
+    pythonVersion: 3.11
     
     # Commands are now run from the 'backend' directory
     buildCommand: |

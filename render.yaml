@@ -2,7 +2,7 @@ services:
   - type: web
     name: community-platform-backend
     env: python
-    pythonVersion: 3.11
+    runtime: python-3.11  # Changed from pythonVersion
     plan: starter
     region: oregon
     buildCommand: |

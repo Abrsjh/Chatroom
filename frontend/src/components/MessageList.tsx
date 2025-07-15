@@ -297,81 +297,82 @@ const MessageList: React.FC<MessageListProps> = ({
           <span>User is typing...</span>
         </div>
       )}
-    <div 
-      className="message-list-container" 
-      data-testid="message-list-container"
-      ref={containerRef}
-      onScroll={handleScroll}
-    >
-      <div className="message-list">
-        {Object.entries(groupedMessages).map(([dateKey, dayMessages]) => (
-          <div key={dateKey}>
-            <div className="date-separator">
-              {formatDate(new Date(dateKey))}
-            </div>
-            
-            {dayMessages.map((message) => {
-              const isSent = message.sender_id === currentUserId
-              const isSelected = showOptionsMenu === message.id
+      <div 
+        className="message-list-container" 
+        data-testid="message-list-container"
+        ref={containerRef}
+        onScroll={handleScroll}
+      >
+        <div className="message-list">
+          {Object.entries(groupedMessages).map(([dateKey, dayMessages]) => (
+            <div key={dateKey}>
+              <div className="date-separator">
+                {formatDate(new Date(dateKey))}
+              </div>
               
-              return (
-                <div
-                  key={message.id}
-                  className={`message ${isSent ? 'sent' : 'received'} ${isSelected ? 'selected' : ''}`}
-                  data-testid={isSent ? 'message-sent' : 'message-received'}
-                  onMouseDown={() => handleLongPress(message.id)}
-                  onMouseUp={handleMouseUp}
-                  onMouseLeave={handleMouseUp}
-                >
-                  <div className="message-content">
-                    {message.content}
-                  </div>
-                  
-                  <div className="message-meta">
-                    <span className="message-time">
-                      {formatRelativeTime(message.created_at)}
-                    </span>
+              {dayMessages.map((message) => {
+                const isSent = message.sender_id === currentUserId
+                const isSelected = showOptionsMenu === message.id
+                
+                return (
+                  <div
+                    key={message.id}
+                    className={`message ${isSent ? 'sent' : 'received'} ${isSelected ? 'selected' : ''}`}
+                    data-testid={isSent ? 'message-sent' : 'message-received'}
+                    onMouseDown={() => handleLongPress(message.id)}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                  >
+                    <div className="message-content">
+                      {message.content}
+                    </div>
                     
-                    {isSent && (
-                      <span 
-                        className="message-status" 
-                        data-testid={`message-status-${message.id}`}
-                      >
-                        {getMessageStatus(message)}
+                    <div className="message-meta">
+                      <span className="message-time">
+                        {formatRelativeTime(message.created_at)}
                       </span>
-                    )}
+                      
+                      {isSent && (
+                        <span 
+                          className="message-status" 
+                          data-testid={`message-status-${message.id}`}
+                        >
+                          {getMessageStatus(message)}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-          </div>
-        ))}
-        
-        <div ref={messagesEndRef} />
-      </div>
-
-      {showOptionsMenu && (
-        <div className="message-options-menu" data-testid="message-options-menu">
-          <button 
-            onClick={() => handleDeleteMessage(showOptionsMenu)}
-            className="delete-option"
-          >
-            Delete message
-          </button>
+                )
+              })}
+            </div>
+          ))}
+          
+          <div ref={messagesEndRef} />
         </div>
-      )}
 
-      {deleteConfirmId && (
-        <div className="delete-confirmation-modal">
-          <div className="modal-content">
-            <p>Delete this message?</p>
-            <div className="modal-actions">
-              <button onClick={confirmDelete}>Delete</button>
-              <button onClick={() => setDeleteConfirmId(null)}>Cancel</button>
+        {showOptionsMenu && (
+          <div className="message-options-menu" data-testid="message-options-menu">
+            <button 
+              onClick={() => handleDeleteMessage(showOptionsMenu)}
+              className="delete-option"
+            >
+              Delete message
+            </button>
+          </div>
+        )}
+
+        {deleteConfirmId && (
+          <div className="delete-confirmation-modal">
+            <div className="modal-content">
+              <p>Delete this message?</p>
+              <div className="modal-actions">
+                <button onClick={confirmDelete}>Delete</button>
+                <button onClick={() => setDeleteConfirmId(null)}>Cancel</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
